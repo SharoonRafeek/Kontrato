@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Dialogue from "@/components/Dialogue/Dialogue";
 import Sidebar from "@/components/dashboard/Sidebar";
+import SectionHeader from "@/components/dashboard/SectionHeader";
 
 const Dashboard = () => {
   const [currentLink, setCurrentLink] = useState("Home");
@@ -11,9 +12,11 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex ">
+    <div className="flex w-screen h-screen">
       <Sidebar />
-      <div className="w-40 h-40 bg-red-500"></div>
+      <div className="flex flex-col">
+        <SectionHeader />
+      </div>
     </div>
   );
 };
