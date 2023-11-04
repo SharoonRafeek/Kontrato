@@ -4,7 +4,7 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
- const authOptions = {
+export const authOptions = {
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID ?? "",
@@ -21,7 +21,7 @@ import GoogleProvider from "next-auth/providers/google";
       console.log("Account ", account);
       if (
         account.provider === "google" ||
-        account.provider === "GITHUB_SECRET"
+        account.provider === "github"
       ) {
         const { name, email } = user;
         try {
