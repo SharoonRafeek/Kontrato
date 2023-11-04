@@ -8,15 +8,24 @@ function AuthButton() {
   if (session) {
     return (
       <>
-        {session?.user?.name} <br />
-        <button onClick={() => signOut()}>Sign Out</button>
+        <button
+          className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+          onClick={() => signOut()}
+        >
+          {session?.user?.name} <img src="/signout.svg" alt="" />
+        </button>
       </>
     );
   }
   return (
     <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign In</button>
+      {/* Not signed in <br /> */}
+      <button
+        className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+        onClick={() => signIn()}
+      >
+        Sign In
+      </button>
     </>
   );
 }
@@ -29,19 +38,19 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800">
+    <nav className="bg-black">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0">
               <img
                 className="block lg:hidden h-8 w-auto"
-                src="/logo.svg"
+                src="/logo.png"
                 alt="Logo"
               />
               <img
                 className="hidden lg:block h-8 w-auto"
-                src="/logo.svg"
+                src="/logo.png"
                 alt="Logo"
               />
             </div>
@@ -65,12 +74,12 @@ const Navbar = () => {
           <div className="hidden sm:block">
             <AuthButton />
 
-            <a
+            {/* <a
               href="#"
               className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
             >
               Sign Up
-            </a>
+            </a> */}
           </div>
           <div className="flex sm:hidden">
             <button
