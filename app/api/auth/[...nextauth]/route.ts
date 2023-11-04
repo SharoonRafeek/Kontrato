@@ -1,25 +1,28 @@
-import { connectMongoDB } from '@/lib/mongo';
-import User from '@/model/user';
-import NextAuth from 'next-auth'
-import GithubProvider from 'next-auth/providers/github'
-import GoogleProvider from 'next-auth/providers/google'
+import { connectMongoDB } from "@/lib/mongo";
+import User from "@/model/user";
+import NextAuth from "next-auth";
+import GithubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 
-export const authOptions = {
-    providers: [
-        GithubProvider({
-            clientId: process.env.GITHUB_ID ?? "",
-            clientSecret: process.env.GITHUB_SECRET ?? "",
-        }),
-        GoogleProvider({
-            clientId: process.env.GOOGLE_ID ?? "",
-            clientSecret: process.env.GOOGLE_SECRET ?? "",
-        }),
-    ],
-    callbacks:{
-        async signIn({user, account}) {
-            console.log("User ",user);
-            console.log("Account ",account);
-             if (account.provider === "google"||account.provider === "GITHUB_SECRET") {
+ const authOptions = {
+  providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_ID ?? "",
+      clientSecret: process.env.GITHUB_SECRET ?? "",
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID ?? "",
+      clientSecret: process.env.GOOGLE_SECRET ?? "",
+    }),
+  ],
+  callbacks: {
+    async signIn({ user, account }) {
+      console.log("User ", user);
+      console.log("Account ", account);
+      if (
+        account.provider === "google" ||
+        account.provider === "GITHUB_SECRET"
+      ) {
         const { name, email } = user;
         try {
           await connectMongoDB();
@@ -45,13 +48,11 @@ export const authOptions = {
           console.log(error);
         }
       }
-            return user;
-            
-        }
-    }
-}
+      return user;
+    },
+  },
+};
 
-export const handler = NextAuth(authOptions)
+export const handler = NextAuth(authOptions);
 
-export {handler as GET, handler as POST}
-
+export { handler as GET, handler as POST };
