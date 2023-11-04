@@ -1,5 +1,25 @@
 "use client";
 import React, { useState } from "react";
+import Link from "next/link";
+import { signIn, signOut, useSession } from "next-auth/react";
+
+function AuthButton() {
+  const { data: session } = useSession();
+  if (session) {
+    return (
+      <>
+        {session?.user?.name} <br />
+        <button onClick={() => signOut()}>Sign Out</button>
+      </>
+    );
+  }
+  return (
+    <>
+      Not signed in <br />
+      <button onClick={() => signIn()}>Sign In</button>
+    </>
+  );
+}
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,6 +63,8 @@ const Navbar = () => {
             </div>
           </div>
           <div className="hidden sm:block">
+            <AuthButton />
+
             <a
               href="#"
               className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
@@ -113,6 +135,7 @@ const Navbar = () => {
           >
             About
           </a>
+          <AuthButton />
           <a
             href="#"
             className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
