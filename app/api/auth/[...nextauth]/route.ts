@@ -15,42 +15,42 @@ export const authOptions:AuthOptions = {
       clientSecret: process.env.GOOGLE_SECRET as string,
     }),
   ],
-  // callbacks: {
-  //   async signIn({ user, account }) {
-  //     console.log("User ", user);
-  //     console.log("Account ", account);
-  //     if (
-  //       account?.provider === "google" ||
-  //       account?.provider === "github"
-  //     ) {
-  //       const { name, email } = user;
-  //       try {
-  //         await connectMongoDB();
-  //         const userExists = await User.findOne({ email });
+  callbacks: {
+    async signIn({ user, account }) {
+      console.log("User ", user);
+      console.log("Account ", account);
+      if (
+        account?.provider === "google" ||
+        account?.provider === "github"
+      ) {
+        const { name, email } = user;
+        try {
+          await connectMongoDB();
+          const userExists = await User.findOne({ email });
 
-  //         if (!userExists) {
-  //           const res = await fetch("http://localhost:3000/api/user", {
-  //             method: "POST",
-  //             headers: {
-  //               "Content-Type": "application/json",
-  //             },
-  //             body: JSON.stringify({
-  //               name,
-  //               email,
-  //             }),
-  //           });
+          if (!userExists) {
+            const res = await fetch("http://localhost:3000/api/user", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                name,
+                email,
+              }),
+            });
 
-  //           if (res.ok) {
-  //             return user;
-  //           }
-  //         }
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     }
-  //     return user;
-  //   },
-  // },
+            if (res.ok) {
+              return user;
+            }
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      return user as any;
+    },
+  },
 };
 
 export const handler = NextAuth(authOptions);
