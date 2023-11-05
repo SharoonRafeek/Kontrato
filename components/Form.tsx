@@ -50,9 +50,21 @@ export default function Form() {
     resolver: zodResolver(FormDataSchema),
   });
 
-  const processForm: SubmitHandler<Inputs> = (data) => {
+  const processForm: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
+    const res = await fetch("http://localhost:3000/api/contract", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...data,
+      }),
+    });
 
+    if (res.ok) {
+      return data;
+    }
     reset();
   };
 

@@ -2,6 +2,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 
 // Create an interface for the document
 interface IFormData extends Document {
+  projectTitle: string;
   projectName: string;
   agreement: string;
   clientName: string;
@@ -18,10 +19,15 @@ interface IFormData extends Document {
 
 // Define the Mongoose schema
 const formDataSchema: Schema<IFormData> = new Schema({
+  projectTitle: {
+    type: String,
+    required: [true, 'Project Title is required'],
+    minlength: [1, 'Project Title is required'],
+  },
   projectName: {
     type: String,
-    required: [true, 'Contract Title is required'],
-    minlength: [1, 'Contract Title is required'],
+    required: [true, 'Project Name is required'],
+    minlength: [1, 'Project Name is required'],
   },
   agreement: {
     type: String,
