@@ -1,15 +1,15 @@
+import AboutUs from "@/components/AboutUs/AboutUs";
+import Footer from "@/components/Footer/Footer";
 import Hero from "@/components/Home/Hero";
-
 import Navbar from "@/components/Navbar";
-import Image from "next/image";
-
 
 export default function Home() {
   return (
     <main className="">
       <Navbar />
-
       <Hero />
+      <AboutUs />
+      <Footer />
     </main>
   );
 }
