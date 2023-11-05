@@ -16,14 +16,14 @@ const Hero = () => {
         objectFit="cover"
         className="rounded-2xl hover:scale-105 transition-all transform duration-300 mt-5 mx-10"
       />
-      <p className="mt-10 font-semibold text-xl text-center px-4 md:px-0 md:text-left md:w-3/4 lg:w-1/2">
-        LOREM IPSUM DOLOR SIT AMET CONSECTETUR ADIPISICING ELIT.
+      <p className="mt-10 font-semibold uppercase text-xl text-center ">
+        Get Paid on Time, Every Time
       </p>
-      <h1 className="text-4xl md:text-9xl font-black">KONTRATO</h1>
+      <h1 className="text-4xl md:text-9xl mt-5 font-black">KONTRATO</h1>
       <Button
         variant="outline"
         onClick={() => router.push("/dashboard", { scroll: false })}
-        className="bg-bl mt-5 mb-10"
+        className="bg-bl mt-16"
       >
         Get Started
       </Button>

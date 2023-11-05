@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState, ChangeEvent } from "react";
 
 let heading = "Hello World";
 let Agreement =
@@ -24,6 +26,33 @@ let TermsAndCondition =
   "Lorem ipsuLorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.m dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.";
 
 const Document = () => {
+  const [imagePreview1, setImagePreview1] = useState<string | null>(null);
+  const [imagePreview2, setImagePreview2] = useState<string | null>(null);
+
+  const handleImageChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    imageIndex: number
+  ) => {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (imageIndex === 1) {
+          setImagePreview1(reader.result as string);
+        } else if (imageIndex === 2) {
+          setImagePreview2(reader.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
+    } else {
+      if (imageIndex === 1) {
+        setImagePreview1(null);
+      } else if (imageIndex === 2) {
+        setImagePreview2(null);
+      }
+    }
+  };
   return (
     <div className="flex justify-center">
       <div className="space-y-7 w-full max-w-3xl">
@@ -137,9 +166,58 @@ const Document = () => {
         <div className="flex justify-between">
           <div className="w-1/2">
             <h3 className="font-semibold">Client Signature</h3>
+
+            <div className="mb-4 mt-5">
+              {imagePreview1 && (
+                <div id="imagePreview1" className="mt-2">
+                  <img
+                    src={imagePreview1}
+                    className="max-w-xs max-h-xs"
+                    alt="Image Preview 1"
+                  />
+                </div>
+              )}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageChange(e, 1)}
+                className="hidden"
+                id="fileInput1"
+              />
+              <label
+                htmlFor="fileInput1"
+                className="bg-black rounded-md text-white p-2 cursor-pointer"
+              >
+                upload
+              </label>
+            </div>
           </div>
           <div className="w-1/2">
             <h3 className="font-semibold">Agency Signature</h3>
+            <div className="mt-5">
+              {imagePreview2 && (
+                <div id="imagePreview2" className="mt-2">
+                  <img
+                    src={imagePreview2}
+                    className="max-w-xs max-h-xs"
+                    alt="Image Preview 2"
+                  />
+                </div>
+              )}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageChange(e, 2)}
+                className="hidden"
+                id="fileInput2"
+              />
+              <label
+                htmlFor="fileInput2"
+                className="bg-black rounded-md text-white p-2 cursor-pointer"
+              >
+                Upload
+              </label>
+            </div>
           </div>
         </div>
       </div>
