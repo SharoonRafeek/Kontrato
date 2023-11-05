@@ -6,7 +6,7 @@ import SessionProvider from "@/components/auth/SessionProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Ascend",
+  title: "Kontrato",
   description: "Easy way to generate contract for your freelancing work",
 };
 

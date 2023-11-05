@@ -1,5 +1,3 @@
-import React from "react";
-
 let heading = "Hello World";
 let Agreement =
   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.";
@@ -23,10 +21,11 @@ let projectTimeline =
 let TermsAndCondition =
   "Lorem ipsuLorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.m dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.";
 
-const Document = () => {
+export default function Page({ params }: { params: { slug: string } }) {
   return (
     <div className="flex justify-center">
       <div className="space-y-7 w-full max-w-3xl">
+        {params.slug}
         <h1 className="mt-7 text-6xl font-semibold text-center">{heading}</h1>
         <p className="text-2xl text-center">{Agreement}</p>
 
@@ -145,6 +144,4 @@ const Document = () => {
       </div>
     </div>
   );
-};
-
-export default Document;
+}

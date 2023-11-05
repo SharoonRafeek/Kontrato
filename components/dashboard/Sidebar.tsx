@@ -2,7 +2,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 
-const Sidebar = () => {
+const Sidebar = ({ handleLinkClick }) => {
   const { data: session } = useSession();
   const [activeNavItem, setActiveNavItem] = useState("");
 
@@ -94,7 +94,7 @@ const Sidebar = () => {
 
   const navsFooter = [
     {
-      href: "javascript:void(0)",
+      href: () => {},
       name: "Help",
       icon: (
         <svg
@@ -114,7 +114,7 @@ const Sidebar = () => {
       ),
     },
     {
-      href: "javascript:void(0)",
+      href: () => {},
       name: "Settings",
       icon: (
         <svg
@@ -139,7 +139,7 @@ const Sidebar = () => {
       ),
     },
     {
-      href: "javascript:void(0)",
+      href: () => signOut(),
       name: "Logout",
       icon: (
         <svg
@@ -162,7 +162,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <nav className="relative top-0 left-0 w-full h-screen border-r bg-white space-y-8 sm:w-80">
+      <nav className="relative top-0 left-0 w-full h-full border-r bg-white space-y-8 sm:w-80">
         <div className="flex flex-col h-full">
           <div className="h-20 flex items-center px-8">
             <a href="/" className="flex-none">
@@ -173,13 +173,13 @@ const Sidebar = () => {
             <ul className="px-4 text-sm font-medium flex-1">
               {navigation.map((item, idx) => (
                 <li key={idx}>
-                  <a
-                    href={item.href}
+                  <button
+                    onClick={handleLinkClick(item.name)}
                     className="flex items-center gap-x-2 text-gray-600 p-2 rounded-lg  hover:bg-gray-50 active:bg-gray-100 duration-150"
                   >
                     <div className="text-gray-500">{item.icon}</div>
                     {item.name}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -187,13 +187,13 @@ const Sidebar = () => {
               <ul className="px-4 pb-4 text-sm font-medium">
                 {navsFooter.map((item, idx) => (
                   <li key={idx}>
-                    <a
-                      href={item.href}
+                    <button
+                      onClick={() => item.href}
                       className="flex items-center gap-x-2 text-gray-600 p-2 rounded-lg  hover:bg-gray-50 active:bg-gray-100 duration-150"
                     >
                       <div className="text-gray-500">{item.icon}</div>
                       {item.name}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
