@@ -1,10 +1,10 @@
 import { connectMongoDB } from "@/lib/mongo";
 import User from "@/model/user";
-import NextAuth, {AuthOptions} from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
-export const authOptions:AuthOptions = {
+const authOptions: AuthOptions = {
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID as string,
@@ -19,10 +19,7 @@ export const authOptions:AuthOptions = {
     async signIn({ user, account }) {
       console.log("User ", user);
       console.log("Account ", account);
-      if (
-        account?.provider === "google" ||
-        account?.provider === "github"
-      ) {
+      if (account?.provider === "google" || account?.provider === "github") {
         const { name, email } = user;
         try {
           await connectMongoDB();
