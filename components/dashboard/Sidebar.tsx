@@ -2,7 +2,11 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 
-const Sidebar = ({ handleLinkClick }) => {
+interface SidebarProps {
+  handleLinkClick: (name: string) => void;
+}
+
+const Sidebar = ({ handleLinkClick }: SidebarProps) => {
   const { data: session } = useSession();
   const [activeNavItem, setActiveNavItem] = useState("");
 
@@ -174,7 +178,7 @@ const Sidebar = ({ handleLinkClick }) => {
               {navigation.map((item, idx) => (
                 <li key={idx}>
                   <button
-                    onClick={handleLinkClick(item.name)}
+                    onClick={() => handleLinkClick(item.name)}
                     className="flex items-center gap-x-2 text-gray-600 p-2 rounded-lg  hover:bg-gray-50 active:bg-gray-100 duration-150"
                   >
                     <div className="text-gray-500">{item.icon}</div>

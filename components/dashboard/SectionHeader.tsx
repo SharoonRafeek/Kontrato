@@ -1,4 +1,8 @@
-export default ({ setContractForm }) => {
+interface SectionHeaderProps {
+  setContractForm: (value: boolean) => void;
+}
+
+export default ({ setContractForm }: SectionHeaderProps) => {
   return (
     <div className="max-w-screen-xl px-4 md:px-8">
       <div className="items-start justify-between py-4 border-b md:flex">
